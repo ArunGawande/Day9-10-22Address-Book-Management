@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class AddressBookMain
 {
     public ArrayList<Contact> contactbook = new ArrayList<>();
+    ArrayList<AddressBookList> addressBookNameList = new ArrayList<>();
+
     Scanner scan = new Scanner(System.in);
     public void addContact()
     {
@@ -128,6 +130,23 @@ public class AddressBookMain
         }
     }
 
+    public void newAddressBook()
+    {
+        System.out.println("Enter AddressBook Name");
+        String userInputBookName = scan.next();
+        AddressBookList addressbook = new AddressBookList(userInputBookName);
+        addressBookNameList.add(addressbook);
+        System.out.println("New Address Book Name is added to list");
+    }
+    public void displayAddressBook()
+    {
+
+        System.out.println("Existing AddressBook Names are : ");
+
+        for (AddressBookList addressBookList : addressBookNameList) {
+            System.out.println(addressBookList);
+        }
+    }
     public static void main(String[] args)
     {
         System.out.println("-------------Welcome To The Address Book Problem--------------------");
@@ -137,7 +156,9 @@ public class AddressBookMain
         System.out.println("2.Edit Contact");
         System.out.println("3.Display Contact");
         System.out.println("4.Delete Contact");
-        System.out.println("5.Exit");
+        System.out.println("5.Add New Address Book");
+        System.out.println("6.Display New Address Book");
+        System.out.println("7.Exit");
         int k=0;
         while(k==0)
         {
@@ -159,6 +180,12 @@ public class AddressBookMain
                     address.deletePerson();
                     break;
                 case 5:
+                    address.newAddressBook();
+                    break;
+                case 6:
+                    address.displayAddressBook();
+                    break;
+                case 7:
                     System.out.println("Exit");
                     k = 1;
                     break;
