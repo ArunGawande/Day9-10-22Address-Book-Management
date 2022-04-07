@@ -14,6 +14,7 @@ public class AddressBookMain
 
         System.out.println("Enter First Name");
         String first = scan.nextLine();
+
         duplicateCheck(first);
 
         System.out.println("Enter Last Name");
@@ -29,13 +30,13 @@ public class AddressBookMain
         String state = scan.nextLine();
 
         System.out.println("Enter Zip Code");
-        int zip = scan.nextInt();
+        int zip = Integer.parseInt(scan.nextLine());
 
         System.out.println("Enter Phone Number");
-        long mobileNo = scan.nextLong();
+        long mobileNo = Long.parseLong(scan.nextLine());
 
         System.out.println("Enter E-mail");
-        String email = scan.next();
+        String email = scan.nextLine();
 
         Contact contact = new Contact(first, last, address, city, state,  email,mobileNo, zip);
         contactbook.add(contact);
@@ -56,10 +57,10 @@ public class AddressBookMain
 
         System.out.println("\n enter First name to edit details:");
 
-        String name = scan.next();   // get the next complete token from the scanner
+        String name = scan.nextLine();
 
         for (Contact person : contactbook) {
-            System.out.println(person.toString());    //we can return values of the object, so we don't need to write much code.
+            System.out.println(person.toString());
 
             if (name.equals(person.firstName)) {
 
@@ -68,12 +69,12 @@ public class AddressBookMain
                         + "2) Email-Id\n"
                         + "3) Address\n"
                         + "4) Quit");
-                int numb = scan.nextInt();
+                int numb = Integer.parseInt(scan.nextLine());
 
                 switch (numb) {
                     case 1 : {
                         System.out.println("enter new Mobile number:");
-                        long mobileNo = scan.nextLong();
+                        long mobileNo = Long.parseLong(scan.nextLine());
 
                         person.setMobileNo(mobileNo);
                         System.out.println("mobile no. is updated\n");
@@ -95,7 +96,7 @@ public class AddressBookMain
                         String state = scan.nextLine();
 
                         System.out.println("enter your zip code");
-                        int zip = scan.nextInt();
+                        int zip = Integer.parseInt(scan.nextLine());
 
                         person.setCity(city);
                         person.setState(state);
@@ -134,7 +135,8 @@ public class AddressBookMain
     public void newAddressBook()
     {
         System.out.println("Enter AddressBook Name");
-        String userInputBookName = scan.next();
+        String userInputBookName = scan.nextLine();
+
         AddressBookList addressbook = new AddressBookList(userInputBookName);
         addressBookNameList.add(addressbook);
         System.out.println("New Address Book Name is added to list");
@@ -167,6 +169,21 @@ public class AddressBookMain
             }
         }
     }
+
+    public void searchPersonByCity()
+    {
+        System.out.println("Enter City name to search Person by city name");
+        String userCity = scan.nextLine();
+
+        contactbook.stream().filter(map -> map.getCity().contains(userCity)).forEach(contactbook -> System.out.println(contactbook));
+    }
+    public void searchPersonByState()
+    {
+        System.out.println("Enter the state name to search Person by state name");
+        String userState = scan.nextLine();
+
+        contactbook.stream().filter(map -> map.getState().contains(userState)).forEach(contactbook -> System.out.println(contactbook));
+    }
     public static void main(String[] args)
     {
         System.out.println("-------------Welcome To The Address Book Problem--------------------");
@@ -178,12 +195,14 @@ public class AddressBookMain
         System.out.println("4.Delete Contact");
         System.out.println("5.Add New Address Book");
         System.out.println("6.Display New Address Book");
-        System.out.println("7.Exit");
+        System.out.println("7.Search Person By City");
+        System.out.println("8. Search Person By State");
+        System.out.println("9.Exit");
         int k=0;
         while(k==0)
         {
             System.out.println("Enter the choice:");
-            int choice = sc.nextInt();
+            int choice = Integer.parseInt(sc.nextLine());
 
             switch (choice) {
                 case 1:
@@ -206,6 +225,12 @@ public class AddressBookMain
                     address.displayAddressBook();
                     break;
                 case 7:
+                    address.searchPersonByCity();
+                    break;
+                case 8:
+                    address.searchPersonByState();
+                    break;
+                case 9:
                     System.out.println("Exit");
                     k = 1;
                     break;
